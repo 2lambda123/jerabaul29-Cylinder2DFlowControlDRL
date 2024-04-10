@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 # a bit hacky, but meeehh... FIXME!!
 import sys
 import os
+import fickling
+
 cwd = os.getcwd()
 sys.path.append(cwd + "/../Simulation/")
 
@@ -199,7 +201,7 @@ class Env2DCylinder(Environment):
                 printi("Load buffer history")
 
             with open('mesh/dict_history_parameters.pkl', 'rb') as f:
-                self.history_parameters = pickle.load(f)
+                self.history_parameters = fickling.load(f)
 
             if not "number_of_probes" in self.history_parameters:
                 self.history_parameters["number_of_probes"] = 0
