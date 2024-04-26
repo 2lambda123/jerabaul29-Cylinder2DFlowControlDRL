@@ -44,12 +44,12 @@ def generate_mesh(args, template='geometry_2d.template_geo', dim=2):
         constants = constants + " -setnumber " + crrt_param + " " + str(args[crrt_param])
 
     # Unrolled model
-    subprocess.call(cmd + constants, shell=True)
+    subprocess.call(cmd + constants, shell=False)
 
     unrolled = '_'.join([output, 'unrolled'])
     assert os.path.exists(unrolled)
 
-    return subprocess.call(['gmsh -%d -clscale %g %s' % (dim, scale, unrolled)], shell=True)
+    return subprocess.call(['gmsh -%d -clscale %g %s' % (dim, scale, unrolled)], shell=False)
 
 # -------------------------------------------------------------------
 
