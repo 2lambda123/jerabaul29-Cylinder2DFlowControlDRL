@@ -1,6 +1,7 @@
 import os, subprocess
 from numpy import deg2rad
 from printind.printind_function import printiv
+from security import safe_command
 
 
 def generate_mesh(args, template='geometry_2d.template_geo', dim=2):
@@ -44,12 +45,12 @@ def generate_mesh(args, template='geometry_2d.template_geo', dim=2):
         constants = constants + " -setnumber " + crrt_param + " " + str(args[crrt_param])
 
     # Unrolled model
-    subprocess.call(cmd + constants, shell=True)
+    safe_command.run(subprocess.call, cmd + constants, shell=True)
 
     unrolled = '_'.join([output, 'unrolled'])
     assert os.path.exists(unrolled)
 
-    return subprocess.call(['gmsh -%d -clscale %g %s' % (dim, scale, unrolled)], shell=True)
+    return safe_command.run(subprocess.call, ['gmsh -%d -clscale %g %s' % (dim, scale, unrolled)], shell=True)
 
 # -------------------------------------------------------------------
 
